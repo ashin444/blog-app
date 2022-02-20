@@ -2,6 +2,42 @@ const express = require('express');
 const cors = require('cors');
 const BlogInfo = require('./src/model/BlogDb');
 import path from 'path';
+const mongoose = require('mongoose');
+
+// Step 1:
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+// Step 2:
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
+
+
+//connecting to atlas
+    mongoose
+    .connect(
+      process.env.MONGODB_CONNECTION_STRING,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    )
+    .then(() => console.log("MongoDB has been connected"))
+    .catch((err) => console.log(err));
+
+
+// .env
+require("dotenv").config()
+
+mongoose
+ .connect(
+     process.env.MONGODB_CONNECTION_STRING,
+         {
+           useNewUrlParser: true,
+           useUnifiedTopology: true,
+         }
+ )
+ .then(() => console.log("MongoDB has been connected"))
+ .catch((err) => console.log(err));
 
 //Object initialization
 const app = express();
@@ -81,8 +117,18 @@ app.delete('/api/blog/:name/delete', (req, res) => {
     blog.deleteOne(item)
 })
 
+
+//setting port
+const PORT = process.env.PORT || 5000
+
+// Accessing the path module
+const path = require("path");
+
+// Step 1:
+app.use(express.static(path.resolve(__dirname, "./src/build")));
+// Step 2:
 app.get('*', (req,res) => {
-    res.sendFile(path.join(__dirname + '/build/index.html'));
+    res.sendFile(path.join(__dirname + './src/build', 'index.html'));   //not linkedin method
 });
 
 //Port number
