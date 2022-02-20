@@ -1,0 +1,18 @@
+.homepagebckrnd {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: wheat;
+}
+
+.heading{
+    color: darkgreen;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.paragraph{
+    margin: 20px 100px 75px 100px;
+    text-align: justify;
+}
